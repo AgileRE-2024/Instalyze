@@ -217,7 +217,107 @@ class InstagramController extends Controller
                         ];
                     }
                 }
+
+                // Get the top 3 posts based on likes
+                usort($allPosts, function ($a, $b) {
+                    return $b['like_count'] - $a['like_count'];
+                });
+                $topPosts = array_slice($allPosts, 0, 6); // Top 3 posts
+
+                // Prepare data for view
+                arsort($hashtagCounts);
+                $topHashtags = array_slice($hashtagCounts, 0, 10, true);
+
+                arsort($wordCounts);
+                $topWords = array_slice($wordCounts, 0, 10, true);
+
+                // Calculate averages and rates
+                $avgLikes = $postCount > 0 ? $totalLikes / $postCount : 0;
+                $avgComments = $postCount > 0 ? $totalComments / $postCount : 0;
+
+                $totalEngagement = $totalLikes + $totalComments;
+                $engagementRate = $followerCount > 0 ? ($totalEngagement / $followerCount) * 100 : 0;
+
+                $avgActivity = ($postsCount > 0 && $followerCount > 0)
+                    ? (($totalLikes + $totalComments) / ($postsCount * $followerCount)) * 100
+                    : 0;
+
+                // Analyze posts in recent periods
+                if (count($timestamps) > 0) {
+                    $postsInLast30Days = count($timestamps);
+                    $postsPerWeek = $postsInLast30Days > 0 ? ($postsInLast30Days / 4.29) : 0;
+
+                    $postsInPrevious30Days = count($previousTimestamps);
+                    $previousPostsPerWeek = $postsInPrevious30Days > 0 ? ($postsInPrevious30Days / 4.29) : 0;
+
+                    $percentageChange = $previousPostsPerWeek > 0
+                        ? (($postsPerWeek - $previousPostsPerWeek) / $previousPostsPerWeek)
+                        : 0;
+                } else {
+                    $postsPerWeek = $percentageChange = 0;
+                }
+
+                // Calculate post frequency and engagement score
+                $postFrequency = $postsCount > 0 ? ($postsCount / $followerCount) * 100 : 0;
+                $averageEngagement = ($avgLikes + $avgComments) / 2;
+                $accountScore = min(max(floor(($postFrequency + $averageEngagement + $engagementRate) / 30 * 10), 1), 10);
+
+                // Determine account quality
+                $predicate = match (true) {
+                    $accountScore >= 9 => 'Very Good',
+                    $accountScore >= 7 => 'Good',
+                    $accountScore >= 5 => 'Moderate',
+                    default => 'Poor',
+                };
+
+                // Calculate sentiment percentages
+                $sentimentTotal = $positiveCount + $negativeCount + ($totalWords - ($positiveCount + $negativeCount));
+                $positivePercentage = $sentimentTotal > 0 ? ($positiveCount / $sentimentTotal) * 100 : 0;
+                $negativePercentage = $sentimentTotal > 0 ? ($negativeCount / $sentimentTotal) * 100 : 0;
+                $neutralPercentage = $sentimentTotal > 0 ? (($totalWords - ($positiveCount + $negativeCount)) / $sentimentTotal) * 100 : 0;
+
+                // Determine the most active posting day
+                $maxDay = array_search(max($postsByDay), $postsByDay);
+                $dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                $mostActiveDay = $dayNames[$maxDay];
+
+                // Prepare data for view rendering
+                $viewData = [
+                    'username' => $instagramData['username'],
+                    'full_name' => $instagramData['full_name'],
+                    'bio' => $instagramData['biography'],
+                    'category' => $instagramData['category'],
+                    'follower_count' => $followerCount,
+                    'following_count' => $instagramData['following_count'],
+                    'posts_count' => $postsCount,
+                    'profile_pic_url' => $profilePicUrl,
+                    'bio_links' => $bioLinks,
+                    'top_hashtags' => $topHashtags,
+                    'top_words' => $topWords,
+                    'avg_likes' => number_format($avgLikes, 2),
+                    'avg_comments' => number_format($avgComments, 2),
+                    'engagement_rate' => number_format($engagementRate, 2),
+                    'avg_activity' => number_format($avgActivity, 2),
+                    'posts_per_week' => $postsPerWeek,
+                    'percentage_change' => number_format($percentageChange, 2),
+                    'posts_by_day' => json_encode($postsByDay),
+                    'account_score' => $accountScore,
+                    'predicate' => $predicate,
+                    'publishing_frequency' => number_format($postsPerWeek, 2),
+                    'positive_percentage' => number_format($positivePercentage, 2),
+                    'negative_percentage' => number_format($negativePercentage, 2),
+                    'neutral_percentage' => number_format($neutralPercentage, 2),
+                    'most_active_day' => $mostActiveDay,
+                    'engagement_by_day' => json_encode($engagementByDay),
+                    'top_posts' => $topPosts // Added top posts data
+                ];
+            } else {
+                return back()->withErrors(['error' => 'User data not found.']);
             }
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'Failed to fetch data: ' . $e->getMessage()]);
         }
+
+        return view('analyze', ['data' => $viewData]);
     }
 }
