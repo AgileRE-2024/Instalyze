@@ -42,7 +42,7 @@
             <div class="space-y-1"> <!-- Ganti space-y-2 dengan space-y-1 untuk mengurangi jarak antar elemen -->
                 <!-- Instagram Username Input -->
                 <div class="flex items-center">
-                    <form action="{{ route('analyze') }}" method="POST" class="flex w-full">
+                    <form action="{{ route('profileanalyze') }}" method="POST" class="flex w-full">
                         @csrf
                         <input class="flex-grow max-w-sm p-4 focus:outline-none h-12 rounded-l-md text-black"
                             placeholder="Enter Instagram username" type="text" name="username" required />
@@ -56,7 +56,7 @@
 
                 <!-- Hashtag Input -->
                 <div class="flex items-center">
-                    <form action="{{ route('analyze') }}" method="POST" class="flex w-full">
+                    <form action="{{ route('profileanalyze') }}" method="POST" class="flex w-full">
                         @csrf
                         <input class="flex-grow max-w-sm p-4 focus:outline-none h-12 rounded-l-md text-black"
                             placeholder="Enter hashtag" type="text" name="hashtag" required />
@@ -70,7 +70,7 @@
 
                 <!-- Headline Input -->
                 <div class="flex items-center">
-                    <form action="{{ route('analyze') }}" method="POST" class="flex w-full">
+                    <form action="{{ route('profileanalyze') }}" method="POST" class="flex w-full">
                         @csrf
                         <input class="flex-grow max-w-sm p-4 focus:outline-none h-12 rounded-l-md text-black"
                             placeholder="Enter headline" type="text" name="headline" required />
