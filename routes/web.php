@@ -1,10 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\InstagramController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('/analyze', [InstagramController::class, 'analyze'])->name('analyze');
+Route::post('/profileanalyze', [ProfileController::class, 'profileanalyze'])->name('profileanalyze');
