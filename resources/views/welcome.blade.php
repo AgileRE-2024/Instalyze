@@ -56,7 +56,7 @@
 
                 <!-- Hashtag Input -->
                 <div class="flex items-center">
-                    <form action="{{ route('profileanalyze') }}" method="POST" class="flex w-full">
+                    <form action="{{ route('hashtaganalyze') }}" method="POST" class="flex w-full">
                         @csrf
                         <input class="flex-grow max-w-sm p-4 focus:outline-none h-12 rounded-l-md text-black"
                             placeholder="Enter hashtag" type="text" name="hashtag" required />
