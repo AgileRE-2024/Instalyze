@@ -9,7 +9,7 @@ use Carbon\Carbon;
 class ProfileController extends Controller
 {
     private $apiHost = 'instagram-scraper-api2.p.rapidapi.com';
-    private $apiKey = '83d66bfb92msh905dafbe8d4ccbap1e9d9djsn943c5dac18cb';
+    private $apiKey = '71b23e3541msh99a76623fec415dp1f0b77jsn847d72bb51ec';
 
     // Daftar kata yang tidak akan dihitung
     private $stopWords = [
@@ -214,15 +214,28 @@ class ProfileController extends Controller
                             'comment_count' => $post['comment_count'] ?? 0,
                             'created_at' => $post['caption']['created_at'] ?? 0,
                             'image_url' => $post['image_versions']['items'][0]['url'] ?? null,
+                            'shortcode' => $post['code'] ?? null,
                         ];
                     }
                 }
 
-                // Get the top 3 posts based on likes
-                usort($allPosts, function ($a, $b) {
+                // Mengurutkan berdasarkan jumlah like terbanyak
+                $topLikedPosts = $allPosts;
+                usort($topLikedPosts, function ($a, $b) {
                     return $b['like_count'] - $a['like_count'];
                 });
-                $topPosts = array_slice($allPosts, 0, 6); // Top 3 posts
+
+                // Mengurutkan berdasarkan jumlah komentar terbanyak
+                $topCommentedPosts = $allPosts;
+                usort($topCommentedPosts, function ($a, $b) {
+                    return $b['comment_count'] - $a['comment_count'];
+                });
+
+                // Ambil top 6 post berdasarkan like
+                $topLikedPosts = array_slice($topLikedPosts, 0, 6); // Top 6 posts based on likes
+
+                // Ambil top 6 post berdasarkan comment
+                $topCommentedPosts = array_slice($topCommentedPosts, 0, 6); // Top 6 posts based on comments
 
                 // Prepare data for view
                 arsort($hashtagCounts);
@@ -309,7 +322,9 @@ class ProfileController extends Controller
                     'neutral_percentage' => number_format($neutralPercentage, 2),
                     'most_active_day' => $mostActiveDay,
                     'engagement_by_day' => json_encode($engagementByDay),
-                    'top_posts' => $topPosts // Added top posts data
+                    'top_liked_posts' => $topLikedPosts, 
+                    'top_commented_posts' => $topCommentedPosts, 
+                    'top_posts' => $allPosts // Added top posts data
                 ];
             } else {
                 return back()->withErrors(['error' => 'User data not found.']);
