@@ -5,12 +5,28 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Product+Sans:wght@400;500;700&amp;display=swap"
         rel="stylesheet" />
     <style>
         body {
             font-family: 'Product Sans', sans-serif;
             background-color: #f5f5f5;
+        }
+
+        .tooltip-wrapper:hover .tooltip-content {
+            display: block;
+        }
+
+        .tooltip-content {
+            max-width: 200px;
+            background-color: #f87171;
+            color: white;
+            padding: 8px;
+            border-radius: 0.375rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            white-space: normal;
         }
     </style>
     <script>
@@ -66,8 +82,8 @@
                 <!-- Added flex and justify-between -->
                 <div class="flex items-center justify-between mb-4"> <!-- Added margin bottom -->
                     <div class="flex items-center">
-                        <img src="{{ $data['profile_pic_url'] }}" alt="Profile Picture"
-                            class="w-16 h-16 rounded-full mr-4" /> <!-- Profile Picture -->
+                        <!-- <img src="{{ $data['profile_pic_url'] }}" alt="Profile Picture"
+                            class="w-16 h-16 rounded-full mr-4" /> Profile Picture -->
                         <div>
                             <h2 class="text-xl font-bold">
                                 {{ $data['full_name'] }}
@@ -81,11 +97,25 @@
                         </div>
                     </div>
 
-                    <div class="flex items-center">
+                    <div class="flex items-center space-x-2">
                         <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm">
                             {{ $data['account_score'] }} {{ $data['predicate'] }}
                         </span>
+                        <div class="relative flex items-center">
+                            <div class="tooltip-wrapper cursor-pointer">
+                                <i class="fas fa-question-circle text-gray-500 tooltip-icon"></i>
+                                <div
+                                    class="tooltip-content hidden absolute left-1/2 transform -translate-x-1/2 mt-1 w-64 bg-red-500 text-white text-sm p-2 rounded-md shadow-lg">
+                                    Account score is an internal metric on Instalyze, calculated based on account
+                                    behavioral indicators, posting frequency, quantity and quality of content.
+                                </div>
+                            </div>
+                        </div>
+
+
+
                     </div>
+
                 </div>
 
                 <div class="mt-4 flex-grow flex flex-col justify-center"> <!-- Added flex-grow and justify-center -->
@@ -112,16 +142,34 @@
             <div class="bg-white p-6 rounded-lg shadow-md w-1/2 ml-6 h-72 flex flex-col justify-between">
                 <div class="flex justify-between items-center mb-4">
                     <div>
-                        <h3 class="text-xl font-bold">
+                        <h3 class="text-xl font-bold flex items-center">
                             Engagement
+                            <div class="relative flex items-center ml-2 tooltip-wrapper cursor-pointer">
+                                <i class="fas fa-question-circle text-gray-500 tooltip-icon"></i>
+                                <div
+                                    class="tooltip-content hidden absolute left-1/2 transform -translate-x-1/2 mt-1 w-64 bg-red-500 text-white text-sm p-2 rounded-md shadow-lg">
+                                    (likes + comments) / followers * 100
+                                </div>
+                            </div>
                         </h3>
+
                         <p class="text-2xl font-bold text-green-500">
                             {{ $data['engagement_rate'] }}%
                         </p>
 
-                        <p class="text-gray-500 mt-2 text-lg">
+                        <p class="text-gray-500 mt-2 text-lg flex items-center relative group">
                             Avg. activity
+                        <div class="tooltip-wrapper cursor-pointer">
+                            <i class="fas fa-question-circle text-gray-500 tooltip-icon"></i>
+                            <div
+                                class="tooltip-content hidden absolute left-1/2 transform -translate-x-1/2 mt-1 w-64 bg-red-500 text-white text-sm p-2 rounded-md shadow-lg">
+                                Shows the ratio of likes and comments to the number posts and followers
+                            </div>
+                        </div>
                         </p>
+
+
+
                         <p class="text-lg font-bold text-green-500">
                             {{ $data['avg_activity'] }}%
                         </p>
@@ -184,7 +232,7 @@
                         <div class="text-center">
                             <p class="text-center font-bold text-lg mb-2">
                                 Posts by Day of the Week
-                                {{ $data['most_active_day'] }} 
+                                {{ $data['most_active_day'] }}
                             </p>
                         </div>
 
@@ -310,7 +358,11 @@
                         @if(!empty($data['top_hashtags']))
                             @foreach($data['top_hashtags'] as $hashtag => $count)
                                 <p>
-                                    <span class="font-bold">{{ $hashtag }}</span>
+                                    <a href="{{ route('hashtaganalyze', ['hashtag' => ltrim($hashtag, '#')]) }}"
+                                        class="hover:text-red-500">
+                                        <span class="font-bold">{{ $hashtag }}</span>
+                                    </a>
+
                                     <span class="text-gray-500">{{ $count }}</span>
                                 </p>
                             @endforeach
@@ -444,10 +496,23 @@
             </div>
             <div id="most-liked-content">
                 <div class="grid grid-cols-3 gap-4">
-                    @foreach($data['top_posts'] as $post)
+                    @foreach($data['top_liked_posts'] as $post)
                         <div class="bg-gray-100 p-4 rounded-lg">
-                            <img alt="Post image" class="w-full h-48 object-cover rounded-lg mb-2" height="200"
-                                src="{{ $post['image_url'] }}" width="200" /> <!-- Displaying the image URL dynamically -->
+                            <div class="relative">
+                                <img alt="Post image"
+                                    class="w-full h-48 object-cover rounded-lg mb-2 filter blur-lg transition-all duration-300"
+                                    height="200" src="{{ $post['image_url'] }}" width="200" />
+
+                                <!-- Tombol "Show Post" dengan link -->
+                                <a href="https://www.instagram.com/p/{{ $post['shortcode'] }}/" target="_blank">
+                                    <button
+                                        class="absolute bottom-2 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-4 py-2 rounded-lg opacity-70 hover:opacity-100 transition-opacity duration-300">
+                                        Show Post
+                                    </button>
+                                </a>
+                            </div>
+
+
                             <div class="flex justify-between items-center">
                                 <p class="text-gray-700">
                                     <i class="fas fa-heart"></i>
@@ -469,13 +534,39 @@
 
             <div class="hidden" id="most-commented-content">
                 <div class="grid grid-cols-3 gap-4">
-                    <div class="bg-gray-100 p-4 rounded-lg">
-                        <img alt="Post image 1" class="w-full h-48 object-cover rounded-lg mb-2" height="200"
-                            src="https://storage.googleapis.com/a1aa/image/F6GvtqBFmkK2NdDXrFG1AffRbKcyP0m2qKWjvAhgPT5xjVoTA.jpg"
-                            width="200" /> <!-- Change the image URL -->
-                        <div class="flex justify-between items-center">
+                    @foreach($data['top_commented_posts'] as $post)
+                        <div class="bg-gray-100 p-4 rounded-lg">
+                            <div class="relative">
+                                <img alt="Post image"
+                                    class="w-full h-48 object-cover rounded-lg mb-2 filter blur-lg transition-all duration-300"
+                                    height="200" src="{{ $post['image_url'] }}" width="200" />
+
+                                <!-- Tombol "Show Post" dengan link -->
+                                <a href="https://www.instagram.com/p/{{ $post['shortcode'] }}/" target="_blank">
+                                    <button
+                                        class="absolute bottom-2 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-4 py-2 rounded-lg opacity-70 hover:opacity-100 transition-opacity duration-300">
+                                        Show Post
+                                    </button>
+                                </a>
+                            </div>
+
+
+                            <div class="flex justify-between items-center">
+                                <p class="text-gray-700">
+                                    <i class="fas fa-heart"></i>
+                                    {{ $post['like_count'] }} <!-- Displaying the number of likes dynamically -->
+                                </p>
+                                <p class="text-gray-700">
+                                    <i class="fas fa-comment"></i>
+                                    {{ $post['comment_count'] }} <!-- Displaying the number of comments dynamically -->
+                                </p>
+                            </div>
+                            <p class="text-gray-500 text-sm">
+                                {{ \Carbon\Carbon::createFromTimestamp($post['created_at'])->format('d M, Y') }}
+                                <!-- Displaying the date -->
+                            </p>
                         </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>

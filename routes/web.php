@@ -10,4 +10,6 @@ Route::get('/', function () {
 });
 
 Route::post('/profileanalyze', [ProfileController::class, 'profileanalyze'])->name('profileanalyze');
+Route::get('/profileanalyze', [ProfileController::class, 'profileanalyze'])->name('profileanalyze');
 Route::post('/hashtaganalyze', [HashtagController::class, 'hashtaganalyze'])->name('hashtaganalyze');
+Route::get('/hashtaganalyze', [HashtagController::class, 'hashtaganalyze'])->name('hashtaganalyze');
