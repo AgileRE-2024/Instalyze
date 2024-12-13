@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Carbon\Carbon;
+use App\Models\SearchHistory;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
@@ -95,6 +97,20 @@ class ProfileController extends Controller
             'username.max' => 'Username tidak boleh lebih dari 255 karakter.',
             'username.regex' => 'Username hanya boleh mengandung huruf, angka, titik, dan garis bawah.',
         ]);
+
+        if (Auth::check()) {
+            $existingSearch = SearchHistory::where('user_id', Auth::id())
+                ->where('username', $request->username)
+                ->first();
+
+            if (!$existingSearch) {
+                SearchHistory::create([
+                    'user_id' => Auth::id(),
+                    'username' => $request->username,
+                ]);
+            }
+        }
+
 
         $username = $request->input('username');
 
@@ -322,17 +338,28 @@ class ProfileController extends Controller
                     'neutral_percentage' => number_format($neutralPercentage, 2),
                     'most_active_day' => $mostActiveDay,
                     'engagement_by_day' => json_encode($engagementByDay),
-                    'top_liked_posts' => $topLikedPosts, 
-                    'top_commented_posts' => $topCommentedPosts, 
+                    'top_liked_posts' => $topLikedPosts,
+                    'top_commented_posts' => $topCommentedPosts,
                     'top_posts' => $allPosts // Added top posts data
                 ];
-            } else {
-                return back()->withErrors(['error' => 'User data not found.']);
             }
-        } catch (\Exception $e) {
-            return back()->withErrors(['error' => 'Failed to fetch data: ' . $e->getMessage()]);
-        }
+            if (!isset($userData['data'])) {
+                return redirect()->route('profilenotfound');
+            }
 
-        return view('profileanalyze', ['data' => $viewData]);
+            return view('profileanalyze', ['data' => $viewData]);
+        } catch (\Exception $e) {
+            // Redirect if an error occurs
+            return redirect()->route('profilenotfound');
+        }
     }
+    public function showProfileHistory()
+    {
+        $histories = SearchHistory::where('user_id', Auth::id())
+            ->distinct('username') 
+            ->get();
+
+        return view('/history', compact('histories'));
+    }
+
 }

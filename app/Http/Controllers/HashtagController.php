@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
+use App\Models\HashtagSearchHistory;
+use Illuminate\Support\Facades\Auth;
 
 class HashtagController extends Controller
 {
@@ -16,6 +18,21 @@ class HashtagController extends Controller
         $request->validate([
             'hashtag' => 'required|string|max:255',
         ]);
+
+
+        if (Auth::check()) {
+            $existingSearch = HashtagSearchHistory::where('user_id', Auth::id())
+                ->where('hashtag', $request->hashtag)
+                ->first();
+
+            if (!$existingSearch) {
+                HashtagSearchHistory::create([
+                    'user_id' => Auth::id(),
+                    'hashtag' => $request->hashtag,
+                ]);
+            }
+        }
+
 
         // Get the hashtag from the request
         $hashtag = $request->input('hashtag');
@@ -85,6 +102,13 @@ class HashtagController extends Controller
 
         // Pass the top hashtags and popular posts to the view
         return view('hashtaganalyze', compact('topHashtags', 'hashtag', 'popularPosts'));
+    }
+    public function showHashtagHistory()
+    {
+        $histories = HashtagSearchHistory::where('user_id', Auth::id())
+            ->distinct('hashtag') 
+            ->get();
+        return view('/hashtaghistory', compact('histories'));
     }
 
 }
