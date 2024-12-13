@@ -36,20 +36,9 @@
     <div class="flex w-full max-w-6xl min-h-screen">
         <!-- Left Section -->
         <div class="w-1/2 p-10 text-white flex flex-col justify-center">
-
-            @if (Auth::check())
-                <h1 class="text-4xl font-bold mb-4">
-                    Hi {{ Auth::user()->name }}👋
-                </h1>
-                <h1 class="text-4xl font-bold mb-4">
-                    What would you like to analyze today?
-                </h1>
-            @else
-                <h1 class="text-4xl font-bold mb-4">
-                    Hi, What would you like to analyze today?
-                </h1>
-            @endif
-
+            <h1 class="text-4xl font-bold mb-4">
+                What would you like to analyze today?
+            </h1>
             <p class="mb-8 max-w-sm">
                 Analyze Instagram usernames, hashtags, and headlines based on the last 12 posts to gain insights and
                 optimize engagement.
@@ -102,50 +91,13 @@
                 </div>
 
             </div>
-            @if (Auth::check())
-                <p class="mt-4 max-w-sm text-2xl font-bold">
-                </p>
-            @else
-                <p class="mt-4 max-w-sm text-2xl font-bold">
-                    Log in to save your history!
-                </p>
-            @endif
 
         </div>
         <!-- Right Section -->
         <div class="w-1/2 relative flex items-center justify-center">
-            <button class="absolute top-[50px] right-1 bg-white text-red-500 py-2 px-4 rounded-lg shadow-lg">
-                @if (Auth::check())
-                    <div class="flex items-center space-x-4">
-                        <!-- Button History -->
-                        <!-- History Link with Dropdown -->
-                        <div class="relative group">
-                            <a class="text-red-500 flex items-center hover:text-red-800 rounded-lg px-4 py-2">
-                                <i class="fas fa-history mr-2"></i> History
-                            </a>
-                            <!-- Dropdown Menu -->
-                            <div class="absolute left-0 hidden bg-white shadow-md rounded-lg group-hover:block">
-                                <ul class="space-y-2 p-2">
-                                    <li><a href="{{ url('/history') }}"
-                                            class="block px-4 py-2 text-gray-800 rounded-lg hover:bg-red-500 hover:text-white">Profile
-                                            Analysis</a></li>
-                                    <li><a href="{{ url('/hashtaghistory') }}"
-                                            class="block px-4 py-2 text-gray-800 rounded-lg hover:bg-red-500 hover:text-white">Hashtag
-                                            Analysis</a></li>
-                                    <li><a href="{{ url('/headlinehistory') }}"
-                                            class="block px-4 py-2 text-gray-800 rounded-lg hover:bg-red-500 hover:text-white">Headline
-                                            Analysis</a></li>
-                                </ul>
-                            </div>
-                        </div>
-
-
-                        <!-- Logout Button -->
-                        <a href="{{ route('logout') }}" class="text-gray-500 hover:text-gray-800">Logout</a>
-                    </div>
-                @else
-                    <a href="{{ url('/signup') }}" class="text-red-500 hover:text-red-800">Sign Up</a>
-                @endif
+            <button
+                class="absolute top-4 right-4 bg-white text-red-500 py-2 px-4 rounded-lg hover:bg-gray-100 shadow-lg">
+                Register
             </button>
 
 
