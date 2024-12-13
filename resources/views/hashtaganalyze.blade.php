@@ -3,7 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>Hashtag Report</title>
+
+  <head>
+    <title>Instalyze</title>
+    <link rel="icon" type="image/png" href="images/logo.png">
+  </head>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Product+Sans:wght@400;500;700&amp;display=swap"
@@ -22,6 +26,9 @@
     <div class="flex items-center mb-2">
       <!-- Hashtag Input -->
       <div class="flex w-1/3">
+        <a href="{{ url('/') }}" class="flex items-center text-red-500 hover:text-red-700 mr-4">
+          <i class="fas fa-arrow-left mr-2"></i> Back
+        </a>
         <form action="{{ route('hashtaganalyze') }}" method="POST" class="flex w-full">
           @csrf
           <input class="flex-grow p-4 focus:outline-none h-12 rounded-l-md text-black" placeholder="Enter hashtag"
@@ -87,15 +94,15 @@
         <div class="p-4 flex-grow">
         <div class="flex items-center mb-2">
           <i class="fab fa-instagram text-gray-500 mr-2"></i>
-          <span class="text-gray-500">{{ $post['username'] }}</span>
+          <span id="username" class="text-gray-500">{{ $post['username'] }}</span>
         </div>
-        <p class="text-gray-800 mb-4">{{ $post['caption'] }}</p>
+        <p id="caption" class="text-gray-800 mb-4">{{ $post['caption'] }}</p>
         <div class="flex justify-between items-center">
           <div class="flex space-x-2 text-gray-500 items-center">
           <i class="far fa-heart"></i>
-          <span>{{ $post['like_count'] }}</span>
+          <span id="like_count">{{ $post['like_count'] }}</span>
           <i class="far fa-comment"></i>
-          <span>{{ $post['comment_count'] }}</span>
+          <span id="comment_count">{{ $post['comment_count'] }}</span>
           </div>
         </div>
         <p class="text-gray-500 mt-2">{{ $post['created_at'] }}</p>
