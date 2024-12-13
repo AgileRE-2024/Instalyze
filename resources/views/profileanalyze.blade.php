@@ -1,8 +1,93 @@
-<html>
+[14.37, 13/12/2024] moja SI'UA 22: <html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+    <head>
+        <title>Instalyze</title>
+        <link rel="icon" type="image/png" href="images/logo.png">
+    </head>
+
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Product+Sans:wght@400;700&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Product Sans', sans-serif;
+        }
+
+        .hover\:bg-red-700:hover {
+            background-color: #c53030;
+        }
+
+        .hover\:bg-red-900:hover {
+            …
+[14.39, 13/12/2024] moja SI'UA 22: <html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Instalyze</title>
+        <link rel="icon" type="image/png" href="images/logo.png">
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+</head>
+
+<style>
+    body {
+        font-family: 'Product Sans', sans-serif;
+        background-color: #f5f5f5;
+    }
+</style>
+
+<body class="bg-gray-100">
+    <div class="max-w-6xl mx-auto p-4">
+        <!-- Search Bar -->
+        <div class="flex items-center justify-center gap-2 mb-8">
+            <form class="flex w-1/2 h-6" action="{{ route('profileanalyze') }}" method="POST">
+                @csrf
+                <input
+                    class="flex-grow p-4 focus:outline-none h-12 rounded-l-md border border-gray-300 focus:border-blue-500"
+                    placeholder="Enter Instagram username" type="text" name="username" required />
+                <button class="bg-red-500 p-4 text-white hover:bg-red-600 h-12 rounded-r-md" type="submit">
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+        </div>
+        <!-- Profile Not Found Section -->
+        <div class="bg-white p-6 rounded-lg shadow-md text-center">
+            <img alt="Profile not found illustration" class="w-[560px] mx-auto mb-4" height="200"
+                src="https://img.freepik.com/free-vector/400-error-bad-request-concept-illustration_114360-1921.jpg"
+                width="200" />
+            <h2 class="text-2xl font-bold text-red-500 mb-2">
+                Profile Not Found
+            </h2>
+            <p class="text-gray-600 mb-4">
+                The profile you are looking for does not exist. Please try searching for another profile.
+            </p>
+            <button class="bg-red-500 text-white px-4 py-2 rounded-full"
+                onclick="window.location.href='{{ url('/') }}'">
+                Go Back
+            </button>
+
+        </div>
+    </div>
+</body>
+
+</html>
+[14.42, 13/12/2024] moja SI'UA 22: <html>
 
 <head>
     <script src="https://cdn.tailwindcss.com">
     </script>
+
+    <head>
+        <title>Instalyze</title>
+        <link rel="icon" type="image/png" href="images/logo.png">
+    </head>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -62,16 +147,21 @@
         <!-- Search Bar -->
         <div class="flex items-center mb-2">
             <div class="flex w-1/3"> <!-- No rounding here, controlled in child elements -->
+                <a href="{{ url('/') }}" class="flex items-center text-red-500 hover:text-red-700 mr-4">
+                    <i class="fas fa-arrow-left mr-2"></i> Back
+                </a>
                 <form action="{{ route('profileanalyze') }}" method="POST" class="flex w-full">
                     @csrf
-                    <input class="flex-grow p-4 focus:outline-none h-12 rounded-l-md"
-                        placeholder="Enter Instagram username" type="text" name="username" required />
-                    <!-- Rounded only on the left side -->
-                    <button class="bg-red-500 p-4 text-white hover:bg-red-600 h-12 rounded-r-md" type="submit">
-                        <!-- Rounded only on the right side -->
+                    <!-- Add an id for easier selection in Dusk -->
+                    <input id="username-input" class="flex-grow p-4 focus:outline-none h-12 rounded-l-md"
+                        dusk="username-input" placeholder="Enter Instagram username" type="text" name="username"
+                        required />
+                    <button class="bg-red-500 p-4 text-white hover:bg-red-600 h-12 rounded-r-md"
+                        dusk="profile-analyze-button" type="submit">
                         <i class="fas fa-arrow-right"></i>
                     </button>
                 </form>
+
             </div>
         </div>
 
@@ -85,20 +175,20 @@
                         <!-- <img src="{{ $data['profile_pic_url'] }}" alt="Profile Picture"
                             class="w-16 h-16 rounded-full mr-4" /> Profile Picture -->
                         <div>
-                            <h2 class="text-xl font-bold">
+                            <h2 id="full-name" class="text-xl font-bold">
                                 {{ $data['full_name'] }}
                             </h2>
                             <p class="text-gray-500">
                                 @ {{ $data['username'] }}
                             </p>
-                            <p class="text-sm text-gray-500">
+                            <p id="category" class="text-sm text-gray-500">
                                 {{ $data['category'] ?? 'No Category Available' }}
                             </p>
                         </div>
                     </div>
 
                     <div class="flex items-center space-x-2">
-                        <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm">
+                        <span id="account_score" class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm">
                             {{ $data['account_score'] }} {{ $data['predicate'] }}
                         </span>
                         <div class="relative flex items-center">
@@ -119,10 +209,10 @@
                 </div>
 
                 <div class="mt-4 flex-grow flex flex-col justify-center"> <!-- Added flex-grow and justify-center -->
-                    <p class="text-gray-700">
+                    <p id="bio" class="text-gray-700">
                         {{ $data['bio'] }}
                     </p>
-                    <div class="mt-2">
+                    <div id="bio_links" class="mt-2">
                         @if (isset($data['bio_links']) && count($data['bio_links']) > 0)
                             <a href="{{ $data['bio_links'][0]['url'] }}"
                                 class="block w-full p-2 border border-gray-300 rounded-lg text-blue-600 hover:text-blue-800"
@@ -153,7 +243,7 @@
                             </div>
                         </h3>
 
-                        <p class="text-2xl font-bold text-green-500">
+                        <p id="engagement_rate" class="text-2xl font-bold text-green-500">
                             {{ $data['engagement_rate'] }}%
                         </p>
 
@@ -170,7 +260,7 @@
 
 
 
-                        <p class="text-lg font-bold text-green-500">
+                        <p id="avg_activity" class="text-lg font-bold text-green-500">
                             {{ $data['avg_activity'] }}%
                         </p>
                     </div>
@@ -178,25 +268,25 @@
                         <p class="text-gray-500 text-lg">
                             Followers
                         </p>
-                        <p class="text-xl font-bold">
+                        <p id="follower_count" class="text-xl font-bold">
                             {{ number_format($data['follower_count']) }}
                         </p>
                         <p class="text-gray-500 text-lg">
                             Uploads
                         </p>
-                        <p class="text-xl font-bold">
+                        <p id="posts_count" class="text-xl font-bold">
                             {{ number_format($data['posts_count']) }}
                         </p>
                         <p class="text-gray-500 text-lg">
                             Avg. likes
                         </p>
-                        <p class="text-xl font-bold">
+                        <p id="avg_likes" class="text-xl font-bold">
                             {{ $data['avg_likes'] }}
                         </p>
                         <p class="text-gray-500 text-lg">
                             Avg. comments
                         </p>
-                        <p class="text-xl font-bold">
+                        <p id="avg_comments" class="text-xl font-bold">
                             {{ $data['avg_comments'] }}
                         </p>
                     </div>
@@ -211,10 +301,10 @@
                 Publishing frequency
             </h3>
             <div class="flex items-center mb-4">
-                <p class="text-2xl font-bold">
+                <p id="publishing_frequency" class="text-2xl font-bold">
                     {{ $data['publishing_frequency'] }} posts/week
                 </p>
-                <p class="{{ $data['percentage_change'] >= 0 ? 'text-green-500' : 'text-red-500' }} ml-2">
+                <p id="percentage_change" class="{{ $data['percentage_change'] >= 0 ? 'text-green-500' : 'text-red-500' }} ml-2">
                     {{ $data['percentage_change'] }}
                 </p>
                 <p class="ml-2">
@@ -230,7 +320,7 @@
                     </h4> -->
                     <div class="bg-gray-100 p-4 rounded-lg flex flex-col items-center">
                         <div class="text-center">
-                            <p class="text-center font-bold text-lg mb-2">
+                            <p id="most_active_day" class="text-center font-bold text-lg mb-2">
                                 Posts by Day of the Week
                                 {{ $data['most_active_day'] }}
                             </p>
@@ -242,7 +332,7 @@
 
                 <script>
                     document.addEventListener("DOMContentLoaded", function () {
-                        const postsByDayData = JSON.parse(`{!! json_encode($data['posts_by_day']) !!}`);
+                        const postsByDayData = JSON.parse({!! json_encode($data['posts_by_day']) !!});
 
                         const ctx = document.getElementById('postTimeChart').getContext('2d');
                         const postTimeChart = new Chart(ctx, {
@@ -305,7 +395,7 @@
                 <script>
                     document.addEventListener("DOMContentLoaded", function () {
                         // Assuming engagement data is passed in a similar format to posts_by_day
-                        const engagementByDayData = JSON.parse(`{!! json_encode($data['engagement_by_day']) !!}`);
+                        const engagementByDayData = JSON.parse({!! json_encode($data['engagement_by_day']) !!});
 
                         const ctx = document.getElementById('engagementTimeChart').getContext('2d');
                         const engagementTimeChart = new Chart(ctx, {
@@ -349,12 +439,12 @@
 
             </div>
         </div>
-        <!-- Hashtags, Caption Words, Semantical Analysis -->
+        <!-- Hashtags, Caption Words, Sentiment Analysis -->
         <div class="bg-white p-6 rounded-lg shadow-md mb-6">
             <div class="flex justify-between">
                 <div class="w-1/3">
                     <h4 class="text-sm font-bold mb-2">Top hashtags</h4>
-                    <div class="bg-gray-100 p-4 rounded-lg">
+                    <div id="top_hashtags" class="bg-gray-100 p-4 rounded-lg">
                         @if(!empty($data['top_hashtags']))
                             @foreach($data['top_hashtags'] as $hashtag => $count)
                                 <p>
@@ -376,7 +466,7 @@
                     <h4 class="text-sm font-bold mb-2">
                         Top caption words
                     </h4>
-                    <div class="bg-gray-100 p-4 rounded-lg">
+                    <div id="top_words" class="bg-gray-100 p-4 rounded-lg">
                         @if(!empty($data['top_words']))
                             @foreach($data['top_words'] as $word => $count)
                                 <p>
@@ -393,28 +483,28 @@
 
                 <div class="w-1/3">
                     <h4 class="text-sm font-bold mb-2">
-                        Semantical analysis
+                        Sentiment analysis
                     </h4>
                     <div class="bg-gray-100 p-4 rounded-lg">
                         <div class="flex items-center mb-2">
                             <span class="w-3 h-3 bg-green-500 rounded-full mr-2"></span>
                             <p class="text-gray-700">
                                 Positive
-                                <span class="font-bold">{{ $data['positive_percentage'] }}%</span>
+                                <span id="positive_percentage" class="font-bold">{{ $data['positive_percentage'] }}%</span>
                             </p>
                         </div>
                         <div class="flex items-center mb-2">
                             <span class="w-3 h-3 bg-gray-500 rounded-full mr-2"></span>
                             <p class="text-gray-700">
                                 Neutral
-                                <span class="font-bold">{{ $data['neutral_percentage'] }}%</span>
+                                <span id="neutral_percentage" class="font-bold">{{ $data['neutral_percentage'] }}%</span>
                             </p>
                         </div>
                         <div class="flex items-center">
                             <span class="w-3 h-3 bg-red-500 rounded-full mr-2"></span>
                             <p class="text-gray-700">
                                 Negative
-                                <span class="font-bold">{{ $data['negative_percentage'] }}%</span>
+                                <span id="negative_percentage" class="font-bold">{{ $data['negative_percentage'] }}%</span>
                             </p>
                         </div>
                     </div>
@@ -480,9 +570,9 @@
                 <h3 class="text-lg font-bold">
                     Posts
                 </h3>
-                <button class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">
+                <!-- <button class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">
                     DOWNLOAD FULL PROFILE
-                </button>
+                </button> -->
             </div>
             <div class="flex mb-4">
                 <button class="bg-red-500 text-white px-4 py-2 rounded-l-lg hover:bg-red-600" id="most-liked-button"
