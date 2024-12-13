@@ -1,31 +1,3 @@
-[14.37, 13/12/2024] moja SI'UA 22: <html lang="en">
-
-<head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-
-    <head>
-        <title>Instalyze</title>
-        <link rel="icon" type="image/png" href="images/logo.png">
-    </head>
-
-    <script src="https://cdn.tailwindcss.com">
-    </script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Product+Sans:wght@400;700&display=swap" rel="stylesheet" />
-    <style>
-        body {
-            font-family: 'Product Sans', sans-serif;
-        }
-
-        .hover\:bg-red-700:hover {
-            background-color: #c53030;
-        }
-
-        .hover\:bg-red-900:hover {
-            …
-[14.39, 13/12/2024] moja SI'UA 22: <html lang="en">
-
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
