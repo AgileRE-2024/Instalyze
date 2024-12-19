@@ -45,12 +45,17 @@ Make sure you have the following installed before running the project:
    - Open phpMyAdmin in your browser (usually http://localhost/phpmyadmin).
    - Click on the Databases tab.
    - In the Create database section, enter Instalyze as the name for your database and click Create.
-6. **Copy the .env file and configure it**
-   <br>Copy the example .env file and configure it with your database details:
+6. **Open the Project in VSCode**
+   <br>Open your project folder in VSCode by typing the following command in the terminal (inside your project folder):
+   ```
+   code .
+   ```
+7. **Copy the .env file and configure it**
+   <br>In VSCode, copy the example .env file:
    ```
    cp .env.example .env
    ```
-   - Open the .env file and update the database configuration with the details of the database you just created in phpMyAdmin:
+   - Open the .env file in VSCode and update the database configuration with the details of the database you just created in phpMyAdmin:
      ```
      DB_CONNECTION=mysql
      DB_HOST=127.0.0.1
@@ -59,17 +64,17 @@ Make sure you have the following installed before running the project:
      DB_USERNAME=root
      DB_PASSWORD=
      ```
-7. **Generate the application key**
+9. **Generate the application key**
      <br>Run the following command to generate the Laravel application key:
      ```
      php artisan key:generate
      ```
-8. **Migrate the database**
+10. **Migrate the database**
    <br>Run the following command to migrate the database:
    ```
    php artisan migrate
    ```
-9. **Run the local server**
+11. **Run the local server**
    <br>Start the Laravel development server:
    ```
    php artisan serve
