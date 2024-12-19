@@ -38,7 +38,7 @@ class HeadlineController extends Controller
             'headers' => [
                 'Content-Type' => 'application/json',
                 'x-rapidapi-host' => 'chatgpt-42.p.rapidapi.com',
-                'x-rapidapi-key' => '275bdb90d7msh05b4d9b680fa40bp1868f1jsn25ede6bab7ae',
+                'x-rapidapi-key' => '4f4a7fae81msh413fe6f7387f8f1p1dfa95jsnbb630beeeb09',
             ],
             'json' => [
                 'messages' => [
@@ -62,7 +62,7 @@ class HeadlineController extends Controller
             'headers' => [
                 'Content-Type' => 'application/json',
                 'x-rapidapi-host' => 'chatgpt-42.p.rapidapi.com',
-                'x-rapidapi-key' => '275bdb90d7msh05b4d9b680fa40bp1868f1jsn25ede6bab7ae',  // Ganti dengan key Anda
+                'x-rapidapi-key' => '4f4a7fae81msh413fe6f7387f8f1p1dfa95jsnbb630beeeb09',  // Ganti dengan key Anda
             ],
             'json' => [
                 'messages' => [
@@ -89,7 +89,7 @@ class HeadlineController extends Controller
             'headers' => [
                 'Content-Type' => 'application/json',
                 'x-rapidapi-host' => 'chatgpt-42.p.rapidapi.com',
-                'x-rapidapi-key' => '275bdb90d7msh05b4d9b680fa40bp1868f1jsn25ede6bab7ae', // Ganti dengan API key Anda
+                'x-rapidapi-key' => '4f4a7fae81msh413fe6f7387f8f1p1dfa95jsnbb630beeeb09', // Ganti dengan API key Anda
             ],
             'json' => [
                 'messages' => [
@@ -112,7 +112,7 @@ class HeadlineController extends Controller
             'headers' => [
                 'Content-Type' => 'application/json',
                 'x-rapidapi-host' => 'chatgpt-42.p.rapidapi.com',
-                'x-rapidapi-key' => '275bdb90d7msh05b4d9b680fa40bp1868f1jsn25ede6bab7ae', // Ganti dengan API key Anda
+                'x-rapidapi-key' => '4f4a7fae81msh413fe6f7387f8f1p1dfa95jsnbb630beeeb09', // Ganti dengan API key Anda
             ],
             'json' => [
                 'messages' => [
@@ -140,7 +140,7 @@ class HeadlineController extends Controller
             'headers' => [
                 'Content-Type' => 'application/json',
                 'x-rapidapi-host' => 'chatgpt-42.p.rapidapi.com',
-                'x-rapidapi-key' => '275bdb90d7msh05b4d9b680fa40bp1868f1jsn25ede6bab7ae', // Ganti dengan API key Anda
+                'x-rapidapi-key' => '4f4a7fae81msh413fe6f7387f8f1p1dfa95jsnbb630beeeb09', // Ganti dengan API key Anda
             ],
             'json' => [
                 'messages' => [
@@ -162,7 +162,7 @@ class HeadlineController extends Controller
             'headers' => [
                 'Content-Type' => 'application/json',
                 'x-rapidapi-host' => 'chatgpt-42.p.rapidapi.com',
-                'x-rapidapi-key' => '275bdb90d7msh05b4d9b680fa40bp1868f1jsn25ede6bab7ae', // Ganti dengan API key Anda
+                'x-rapidapi-key' => '4f4a7fae81msh413fe6f7387f8f1p1dfa95jsnbb630beeeb09', // Ganti dengan API key Anda
             ],
             'json' => [
                 'messages' => [
@@ -184,7 +184,7 @@ class HeadlineController extends Controller
             'headers' => [
                 'Content-Type' => 'application/json',
                 'x-rapidapi-host' => 'chatgpt-42.p.rapidapi.com',
-                'x-rapidapi-key' => '275bdb90d7msh05b4d9b680fa40bp1868f1jsn25ede6bab7ae',
+                'x-rapidapi-key' => '4f4a7fae81msh413fe6f7387f8f1p1dfa95jsnbb630beeeb09',
             ],
             'json' => [
                 'messages' => [
@@ -206,7 +206,7 @@ class HeadlineController extends Controller
             'headers' => [
                 'Content-Type' => 'application/json',
                 'x-rapidapi-host' => 'chatgpt-42.p.rapidapi.com',
-                'x-rapidapi-key' => '275bdb90d7msh05b4d9b680fa40bp1868f1jsn25ede6bab7ae',
+                'x-rapidapi-key' => '4f4a7fae81msh413fe6f7387f8f1p1dfa95jsnbb630beeeb09',
             ],
             'json' => [
                 'messages' => [
@@ -228,7 +228,7 @@ class HeadlineController extends Controller
             'headers' => [
                 'Content-Type' => 'application/json',
                 'x-rapidapi-host' => 'chatgpt-42.p.rapidapi.com',
-                'x-rapidapi-key' => '275bdb90d7msh05b4d9b680fa40bp1868f1jsn25ede6bab7ae', // Ganti dengan API key Anda
+                'x-rapidapi-key' => '4f4a7fae81msh413fe6f7387f8f1p1dfa95jsnbb630beeeb09', // Ganti dengan API key Anda
             ],
             'json' => [
                 'messages' => [
@@ -250,7 +250,7 @@ class HeadlineController extends Controller
             'headers' => [
                 'Content-Type' => 'application/json',
                 'x-rapidapi-host' => 'chatgpt-42.p.rapidapi.com',
-                'x-rapidapi-key' => '275bdb90d7msh05b4d9b680fa40bp1868f1jsn25ede6bab7ae', // Ganti dengan API key Anda
+                'x-rapidapi-key' => '4f4a7fae81msh413fe6f7387f8f1p1dfa95jsnbb630beeeb09', // Ganti dengan API key Anda
             ],
             'json' => [
                 'messages' => [
