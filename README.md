@@ -64,22 +64,22 @@ Make sure you have the following installed before running the project:
      DB_USERNAME=root
      DB_PASSWORD=
      ```
-9. **Generate the application key**
+8. **Generate the application key**
      <br>Run the following command to generate the Laravel application key:
      ```
      php artisan key:generate
      ```
-10. **Migrate the database**
-   <br>Run the following command to migrate the database:
-   ```
-   php artisan migrate
-   ```
-11. **Run the local server**
-   <br>Start the Laravel development server:
-   ```
-   php artisan serve
-   ```
-   Access the application at http://127.0.0.1:8000.
+9. **Migrate the database**
+    <br>Run the following command to migrate the database:
+     ```
+     php artisan migrate
+     ```
+10. **Run the local server**
+    <br>Start the Laravel development server:
+     ```
+     php artisan serve
+     ```
+     Access the application at http://127.0.0.1:8000.
 
 ## 🖥️ **Usage**
 - [x] **Input Instagram Username**
