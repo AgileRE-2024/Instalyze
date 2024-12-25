@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class ProfileController extends Controller
 {
     private $apiHost = 'instagram-scraper-api2.p.rapidapi.com';
-    private $apiKey = '71b23e3541msh99a76623fec415dp1f0b77jsn847d72bb51ec';
+    private $apiKey = 'fd5546dd29mshaaa62f217104f27p1f671ajsn6a01e268785f';
 
     // Daftar kata yang tidak akan dihitung
     private $stopWords = [
