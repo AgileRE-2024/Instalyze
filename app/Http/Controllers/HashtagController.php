@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class HashtagController extends Controller
 {
     private $apiHost = 'instagram-scraper-api2.p.rapidapi.com';
-    private $apiKey = 'fd5546dd29mshaaa62f217104f27p1f671ajsn6a01e268785f';
+    private $apiKey = '084090d571msh6682e6f441dba93p1b02aajsnbf37bc06ffa9';
 
     public function hashtaganalyze(Request $request)
     {
